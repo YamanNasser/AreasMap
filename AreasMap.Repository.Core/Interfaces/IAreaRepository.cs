@@ -9,7 +9,5 @@ namespace AreasMap.Repository.Core.Interfaces
     public interface IAreaRepository : IRepository<Area>
     {
         Task<List<MainAreaDto>> GetAllAreasAsync();
-
-        Task BulkMergeAsync(AreaMapBulk bulk);
     }
 }

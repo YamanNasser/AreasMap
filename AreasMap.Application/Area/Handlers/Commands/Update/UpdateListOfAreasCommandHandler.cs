@@ -63,7 +63,11 @@ namespace AreasMap.Application.Area.Handlers.Commands.Update
             try
             {
                 _unitOfWork.BeginBulkTransaction();
-                await _unitOfWork.AreaRepository.BulkMergeAsync(bulk);
+                await _unitOfWork.AreaRepository.BulkMergeAsync(bulk.Area);
+                await _unitOfWork.ShapeRepository.BulkMergeAsync(bulk.Shape);
+                await _unitOfWork.PolygonRepository.BulkMergeIncludeGraphAsync(bulk.Polygon);
+                await _unitOfWork.CircleRepository.BulkMergeIncludeGraphAsync(bulk.Circle);
+                await _unitOfWork.RectangleRepository.BulkMergeIncludeGraphAsync(bulk.Rectangle);
                 await _unitOfWork.CommitBulkAsync();
             }
             catch
@@ -71,7 +75,6 @@ namespace AreasMap.Application.Area.Handlers.Commands.Update
                 await _unitOfWork.RollbackAsync();
                 return false;
             }
-
             return true;
         }
 

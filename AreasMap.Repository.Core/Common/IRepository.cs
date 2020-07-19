@@ -14,7 +14,8 @@ namespace AreasMap.Repository.Core.Common
         bool Any(Expression<Func<TEntity, bool>> predicate);
 
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
-
+        Task BulkMergeAsync(IEnumerable<TEntity> entity);
+        Task BulkMergeIncludeGraphAsync(IEnumerable<TEntity> entity);
         long Count(Expression<Func<TEntity, bool>> predicate);
 
         long Count();

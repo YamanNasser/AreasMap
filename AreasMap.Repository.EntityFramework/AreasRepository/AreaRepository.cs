@@ -125,22 +125,5 @@ namespace AreasMap.Repository.EntityFramework.AreasRepository
                 Radius = double.Parse(reader["Radius"].ToString())
             };
         }
-
-        /// <summary>
-        /// https://entityframework-extensions.net/bulk-merge
-        /// </summary>
-        /// <param name="bulk"></param>
-        /// <returns></returns>
-        public async Task BulkMergeAsync(AreaMapBulk bulk)
-        {
-            await Context.BulkMergeAsync(bulk.Area);
-            await Context.BulkMergeAsync(bulk.Shape);
-            await Context.BulkMergeAsync(bulk.Polygon,
-               operation => operation.IncludeGraph = true);
-            await Context.BulkMergeAsync(bulk.Circle,
-               operation => operation.IncludeGraph = true);
-            await Context.BulkMergeAsync(bulk.Rectangle,
-               operation => operation.IncludeGraph = true);
-        }
     }
 }

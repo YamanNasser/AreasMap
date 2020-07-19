@@ -18,6 +18,27 @@ namespace AreasMap.Repository.EntityFramework.Common
             Context = context;
         }
 
+        /// <summary>
+        ///  https://entityframework-extensions.net/bulk-merge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task BulkMergeAsync(IEnumerable<TEntity> entity)
+        {
+            await Context.BulkMergeAsync(entity);
+        }
+
+        /// <summary>
+        ///  https://entityframework-extensions.net/bulk-merge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task BulkMergeIncludeGraphAsync(IEnumerable<TEntity> entity)
+        {
+            await Context.BulkMergeAsync(entity,
+                   operation => operation.IncludeGraph = true);
+        }
+
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
