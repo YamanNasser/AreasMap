@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="dd\**" />
+    <EmbeddedResource Remove="dd\**" />
+    <None Remove="dd\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AreasMap.Domain\AreasMap.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
