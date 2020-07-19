@@ -140,8 +140,8 @@ namespace AreasMap.Repository.EntityFramework.AreasRepository
             var transaction = Context.Database.BeginTransaction();
             try
             {
-                await Context.BulkMergeAsync(bulk.Area);
-                await Context.BulkMergeAsync(bulk.Shape);
+                Context.BulkMerge(bulk.Area);
+                Context.BulkMerge(bulk.Shape);
                 await Context.BulkMergeAsync(bulk.Polygon,
                    operation => operation.IncludeGraph = true);
                 await Context.BulkMergeAsync(bulk.Circle,
