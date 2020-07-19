@@ -1,4 +1,5 @@
 ﻿using AreasMap.Application.Area.Commands.Create;
+using AreasMap.Application.Area.Model;
 using AreasMap.Domain.Entities;
 using AreasMap.Domain.Entities.Shapes;
 using AreasMap.Repository.Core.Common;
