@@ -31,6 +31,6 @@ namespace AreasMap.Repository.Core.Common
 
         Task CommitBulkAsync();
 
-        Task RollbackAsync();
+        Task RollBulkbackAsync();
     }
 }

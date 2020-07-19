@@ -73,7 +73,7 @@ namespace AreasMap.Application.Area.Handlers.Commands.Update
             }
             catch
             {
-                await _unitOfWork.RollbackAsync();
+                await _unitOfWork.RollBulkbackAsync();
                 return false;
             }
             return true;

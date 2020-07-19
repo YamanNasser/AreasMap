@@ -59,16 +59,16 @@ namespace AreasMap.Application.Area.Handlers.Commands.Create
             try
             {
                 _unitOfWork.BeginBulkTransaction();
-                await _unitOfWork.AreaRepository.BulkMergeAsync(bulk.Area);
-                await _unitOfWork.ShapeRepository.BulkMergeAsync(bulk.Shape);
-                await _unitOfWork.PolygonRepository.BulkMergeIncludeGraphAsync(bulk.Polygon);
-                await _unitOfWork.CircleRepository.BulkMergeIncludeGraphAsync(bulk.Circle);
-                await _unitOfWork.RectangleRepository.BulkMergeIncludeGraphAsync(bulk.Rectangle);
+                await _unitOfWork.AreaRepository.BulkInsertAsync(bulk.Area);
+                await _unitOfWork.ShapeRepository.BulkInsertAsync(bulk.Shape);
+                await _unitOfWork.PolygonRepository.BulkInsertIncludeGraphAsync(bulk.Polygon);
+                await _unitOfWork.CircleRepository.BulkInsertIncludeGraphAsync(bulk.Circle);
+                await _unitOfWork.RectangleRepository.BulkInsertIncludeGraphAsync(bulk.Rectangle);
                 await _unitOfWork.CommitBulkAsync();
             }
             catch
             {
-                await _unitOfWork.RollbackAsync();
+                await _unitOfWork.RollBulkbackAsync();
                 return false;
             }
             return true;

@@ -28,12 +28,29 @@ namespace AreasMap.Repository.EntityFramework.Common
             await Context.BulkMergeAsync(entity);
         }
 
-        /// <summary>
-        ///  https://entityframework-extensions.net/bulk-merge
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
         public async Task BulkMergeIncludeGraphAsync(IEnumerable<TEntity> entity)
+        {
+            await Context.BulkMergeAsync(entity,
+                   operation => operation.IncludeGraph = true);
+        }
+
+        public async Task BulkInsertAsync(IEnumerable<TEntity> entity)
+        {
+            await Context.BulkInsertAsync(entity);
+        }
+
+        public async Task BulkInsertIncludeGraphAsync(IEnumerable<TEntity> entity)
+        {
+            await Context.BulkInsertAsync(entity,
+                               operation => operation.IncludeGraph = true);
+        }
+
+        public async Task BulkUpdateAsync(IEnumerable<TEntity> entity)
+        {
+            await Context.BulkMergeAsync(entity);
+        }
+
+        public async Task BulkUpdateIncludeGraphAsync(IEnumerable<TEntity> entity)
         {
             await Context.BulkMergeAsync(entity,
                    operation => operation.IncludeGraph = true);

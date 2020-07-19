@@ -40,7 +40,7 @@ namespace AreasMap.Repository.EntityFramework.Common
             await _transaction.CommitAsync();
         }
 
-        public async Task RollbackAsync()
+        public async Task RollBulkbackAsync()
         {
             await _transaction.RollbackAsync();
         }
