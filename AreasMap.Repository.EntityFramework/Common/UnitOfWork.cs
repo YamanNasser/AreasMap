@@ -3,9 +3,11 @@ using AreasMap.Repository.Core.Interfaces;
 using AreasMap.Repository.EntityFramework.AreasRepository;
 using AreasMap.Repository.EntityFramework.Context;
 using AreasMap.Repository.EntityFramework.ShapRepository;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Z.EntityFramework.Extensions;
 
 namespace AreasMap.Repository.EntityFramework.Common
 {
@@ -26,9 +28,31 @@ namespace AreasMap.Repository.EntityFramework.Common
         public IPolygonRepository PolygonRepository { get; private set; }
         public IPolygonCoordinateRepository PolygonCoordinateRepository { get; private set; }
 
+        private IDbContextTransaction _transaction;
+
+        public void BeginBulkTransaction()
+        {
+            _transaction = _context.Database.BeginTransaction();
+        }
+
+        public async Task CommitBulkAsync()
+        {
+            await _transaction.CommitAsync();
+        }
+
+        public async Task RollbackAsync()
+        {
+            await _transaction.RollbackAsync();
+        }
+
         public UnitOfWork(AreasMapCoreDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+
+            EntityFrameworkManager.ContextFactory = context =>
+            {
+                return _context;
+            };
 
             AreaRepository = new AreaRepository(_context);
             ShapeRepository = new ShapeRepository(_context);
@@ -62,6 +86,7 @@ namespace AreasMap.Repository.EntityFramework.Common
         public void Dispose()
         {
             _context?.Dispose();
+            _transaction?.Dispose();
         }
     }
 }

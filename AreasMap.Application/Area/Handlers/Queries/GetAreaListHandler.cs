@@ -11,12 +11,10 @@ namespace AreasMap.Application.Area.Handlers.Queries
     public class GetAreaListHandler : IRequestHandler<GeAreaListQuery, AreaListView>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public GetAreaListHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetAreaListHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task<AreaListView> Handle(GeAreaListQuery request, CancellationToken cancellationToken)

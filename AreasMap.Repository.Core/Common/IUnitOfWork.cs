@@ -21,10 +21,16 @@ namespace AreasMap.Repository.Core.Common
         IRectangleRepository RectangleRepository { get; }
         IRectangleBoundsRepository RectangleBoundsRepository { get; }
 
+        void BeginBulkTransaction();
+
         int Commit();
 
         Task<int> CommitAsync(CancellationToken cancellationToken);
 
         Task<int> CommitAsync();
+
+        Task CommitBulkAsync();
+
+        Task RollbackAsync();
     }
 }

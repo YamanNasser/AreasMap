@@ -19,10 +19,6 @@ namespace AreasMap.Repository.EntityFramework.AreasRepository
         public AreaRepository(AreasMapCoreDbContext context)
             : base(context)
         {
-            EntityFrameworkManager.ContextFactory = context =>
-            {
-                return Context;
-            };
         }
 
         public async Task<List<MainAreaDto>> GetAllAreasAsync()
@@ -135,29 +131,16 @@ namespace AreasMap.Repository.EntityFramework.AreasRepository
         /// </summary>
         /// <param name="bulk"></param>
         /// <returns></returns>
-        public async Task<bool> BulkMergeAsync(AreaMapBulk bulk)
+        public async Task BulkMergeAsync(AreaMapBulk bulk)
         {
-            var transaction = Context.Database.BeginTransaction();
-            try
-            {
-                Context.BulkMerge(bulk.Area);
-                Context.BulkMerge(bulk.Shape);
-                await Context.BulkMergeAsync(bulk.Polygon,
-                   operation => operation.IncludeGraph = true);
-                await Context.BulkMergeAsync(bulk.Circle,
-                   operation => operation.IncludeGraph = true);
-                await Context.BulkMergeAsync(bulk.Rectangle,
-                   operation => operation.IncludeGraph = true);
-
-                await transaction.CommitAsync();
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync();
-                throw ex;
-            }
-
-            return true;//done
+            await Context.BulkMergeAsync(bulk.Area);
+            await Context.BulkMergeAsync(bulk.Shape);
+            await Context.BulkMergeAsync(bulk.Polygon,
+               operation => operation.IncludeGraph = true);
+            await Context.BulkMergeAsync(bulk.Circle,
+               operation => operation.IncludeGraph = true);
+            await Context.BulkMergeAsync(bulk.Rectangle,
+               operation => operation.IncludeGraph = true);
         }
     }
 }
