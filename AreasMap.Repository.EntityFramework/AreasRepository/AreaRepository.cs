@@ -135,7 +135,7 @@ namespace AreasMap.Repository.EntityFramework.AreasRepository
         /// </summary>
         /// <param name="bulk"></param>
         /// <returns></returns>
-        public bool BulkMerge(AreaMapBulk bulk)
+        public async Task<bool> BulkMergeAsync(AreaMapBulk bulk)
         {
             var transaction = Context.Database.BeginTransaction();
             try

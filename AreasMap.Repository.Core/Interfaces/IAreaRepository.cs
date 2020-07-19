@@ -10,6 +10,6 @@ namespace AreasMap.Repository.Core.Interfaces
     {
         Task<List<MainAreaDto>> GetAllAreasAsync();
 
-        bool BulkMerge(AreaMapBulk bulk);
+        Task<bool> BulkMergeAsync(AreaMapBulk bulk);
     }
 }

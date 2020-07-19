@@ -55,7 +55,7 @@ namespace AreasMap.Application.Area.Handlers.Commands.Create
                 }
             }
 
-            return _unitOfWork.AreaRepository.BulkMerge(bulk);
+            return await _unitOfWork.AreaRepository.BulkMergeAsync(bulk);
         }
 
         private void AddArea(MainAreaDto area, Guid areaId, Guid shapId, AreaMapBulk bulk)

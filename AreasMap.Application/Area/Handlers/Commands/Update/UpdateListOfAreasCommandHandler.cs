@@ -59,7 +59,7 @@ namespace AreasMap.Application.Area.Handlers.Commands.Update
                     }
                 }
             }
-            return _unitOfWork.AreaRepository.BulkMerge(bulk);
+            return await _unitOfWork.AreaRepository.BulkMergeAsync(bulk);
         }
 
         private void AddArea(AreaDto area, Guid areaId, Guid shapId, AreaMapBulk bulk)
