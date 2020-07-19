@@ -140,20 +140,20 @@ namespace AreasMap.Repository.EntityFramework.AreasRepository
             var transaction = Context.Database.BeginTransaction();
             try
             {
-                Context.BulkMerge(bulk.Area);
-                Context.BulkMerge(bulk.Shape);
-                Context.BulkMerge(bulk.Polygon,
+                await Context.BulkMergeAsync(bulk.Area);
+                await Context.BulkMergeAsync(bulk.Shape);
+                await Context.BulkMergeAsync(bulk.Polygon,
                    operation => operation.IncludeGraph = true);
-                Context.BulkMerge(bulk.Circle,
+                await Context.BulkMergeAsync(bulk.Circle,
                    operation => operation.IncludeGraph = true);
-                Context.BulkMerge(bulk.Rectangle,
+                await Context.BulkMergeAsync(bulk.Rectangle,
                    operation => operation.IncludeGraph = true);
 
-                transaction.Commit();
+                await transaction.CommitAsync();
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                await transaction.RollbackAsync();
                 throw ex;
             }
 
